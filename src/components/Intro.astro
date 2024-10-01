@@ -1,0 +1,93 @@
+---
+import Heading from "./ui/Heading.astro";
+---
+
+<section class="wrapper">
+  <Heading
+    as="h1"
+    class="name gradient-text gradient-color outline outline-color"
+  >
+    Charles Abraham 
+  </Heading>
+  <p class="subtext">QA Engineer. Automation Enthusiast. Blogger.</p>
+  <p class="hello">
+    Hi, I'm Abraham Charles, a QA Engineer, Automation Enthusiast and a Chef, yes a 👨‍🍳 Chef! I am also a writer, speaker and open source contributer. This is my personal site where I share all the content I create.
+  </p>
+    <p class="hello">
+   I primarily write articles focusing on breaking software concepts (mostly automation related ones) down to their fundamentals. Check out one of my posts (or all of them). If you like what you read, then sign up for my newsletter, too.
+  </p>
+  <p class="hello">
+If you're looking to hire me send an email to info@charlesabraham.me. If you need to reach me regarding something else, then my personal email is the best way to do so.
+  </p>
+    </p>
+  <p class="hello">
+Enjoy your time here and thank you.
+  </p>
+</section>
+
+<style>
+  .wrapper {
+    padding-top: 1rem;
+    /* padding-bottom: 1rem; */
+  }
+
+  .outline {
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 0.075rem var(--outline-color);
+  }
+
+  .gradient-color {
+    --gradient-text-from: #5433ff;
+    --gradient-text-via: #20bdff;
+    --gradient-text-to: #a5fecb;
+  }
+
+  .outline-color {
+    --outline-color: var(--text-heading);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .gradient-color {
+      --gradient-text-from: #a5fecb;
+      --gradient-text-via: #20bdff;
+      --gradient-text-to: #a5fecb;
+    }
+    .outline-color {
+      --outline-color: transparent;
+    }
+  }
+
+  .name {
+    font-size: 3rem;
+    margin: 0;
+    letter-spacing: -2px;
+    line-height: 3.5rem;
+  }
+
+  .subtext {
+    color: var(--text-heading);
+    font-size: 1.25rem;
+    letter-spacing: -0.51px;
+    line-height: 2rem;
+    margin-top: 0.5rem;
+  }
+
+  .cli-command {
+    text-align: center;
+    white-space: nowrap;
+    overflow: auto;
+  }
+
+  @media (min-width: 640px) {
+    .name {
+      font-size: 4rem;
+      line-height: 4.75rem;
+    }
+    .subtext {
+      font-size: 1.5rem;
+      letter-spacing: -0.51px;
+      line-height: 2rem;
+      margin-top: 0.5rem;
+    }
+  }
+</style>
