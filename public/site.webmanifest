@@ -1,0 +1,16 @@
+{
+  "name": "Charles yapping zone",
+  "short_name": "CYZ",
+  "description": "Personal portfolio and blog for software engineering, AI/ML notes, side projects, and talks.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#071018",
+  "theme_color": "#071018",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

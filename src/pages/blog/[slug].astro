@@ -1,52 +1,67 @@
 ---
-import { readOne, readAll } from "../../lib/markdoc/read";
-import { blog } from "../../lib/markdoc/frontmatter.schema";
-import Renderer from "../../components/Renderer.astro";
-import BlogPostMeta from "../../components/BlogPostMeta.astro";
-import ContentLayout from "../../layouts/ContentLayout.astro";
-import { SITE_URL } from "../../config";
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TagList from '../../components/TagList.astro';
+import { estimateReadingTime, formatDate, sortPosts, withBase } from '../../lib/utils';
 
 export async function getStaticPaths() {
-  const posts = await readAll({
-    directory: "blog",
-    frontmatterSchema: blog,
-  });
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
 
-  // we don't want to generate pages for posts that link to external websites
-  const filteredPosts = posts
-    .filter((p) => p.frontmatter.draft !== true)
-    .filter(({ frontmatter }) => !frontmatter.external);
-
-  return filteredPosts.map((post) => {
-    return { params: { slug: post.slug } };
-  });
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post }
+  }));
 }
 
-const { slug } = Astro.params;
-if (typeof slug !== "string") {
-  throw Error(`slug should be string. Received: ${slug}`);
-}
-
-const { content, frontmatter } = await readOne({
-  directory: "blog",
-  slug,
-  frontmatterSchema: blog,
-});
-
-const ogImageAbsoluteUrl =
-  frontmatter.external !== true && frontmatter.ogImagePath
-    ? new URL(frontmatter.ogImagePath, SITE_URL).toString()
-    : undefined;
+const { post } = Astro.props;
+const { Content } = await render(post);
+const allPosts = sortPosts(await getCollection('blog', ({ data }) => !data.draft));
+const currentIndex = allPosts.findIndex((entry) => entry.id === post.id);
+const newerPost = currentIndex > 0 ? allPosts[currentIndex - 1] : undefined;
+const olderPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : undefined;
 ---
 
-<ContentLayout title={frontmatter.title} date={frontmatter.date}>
-  <BlogPostMeta
-    title={frontmatter.title}
-    description={frontmatter.external ? undefined : frontmatter.description}
-    publishDate={frontmatter.date.toISOString()}
-    pagePath={`/blog/${slug}`}
-    ogImageAbsoluteUrl={ogImageAbsoluteUrl}
-    slot="meta"
-  />
-  <Renderer content={content} slot="content" />
-</ContentLayout>
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  type="article"
+  publishedTime={post.data.publishDate.toISOString()}
+  tags={post.data.tags}
+>
+  <article class="article-shell">
+    <header class="article-header" data-reveal>
+      <p class="eyebrow">Notebook entry</p>
+      <h1>{post.data.title}</h1>
+      <p class="article-description page-intro">{post.data.description}</p>
+      <div class="article-meta">
+        <span>{formatDate(post.data.publishDate)}</span>
+        <span>{estimateReadingTime(post.body ?? '')}</span>
+      </div>
+      <TagList tags={post.data.tags} />
+    </header>
+
+    <div class="prose" data-reveal>
+      <Content />
+    </div>
+
+    <nav class="article-nav" aria-label="Post navigation" data-reveal>
+      {newerPost ? (
+        <a href={withBase(`/blog/${newerPost.id}`)}>
+          <span>Newer post</span>
+          {newerPost.data.title}
+        </a>
+      ) : (
+        <div></div>
+      )}
+
+      {olderPost ? (
+        <a href={withBase(`/blog/${olderPost.id}`)}>
+          <span>Older post</span>
+          {olderPost.data.title}
+        </a>
+      ) : (
+        <div></div>
+      )}
+    </nav>
+  </article>
+</BaseLayout>

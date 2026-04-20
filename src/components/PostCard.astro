@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { estimateReadingTime, formatDate, withBase } from '../lib/utils';
+import TagList from './TagList.astro';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+---
+
+<article class="post-card" data-reveal>
+  <a class="post-card-link" href={withBase(`/blog/${post.id}`)}>
+    <div class="post-meta">
+      <span>{formatDate(post.data.publishDate)}</span>
+      <span>{estimateReadingTime(post.body ?? '')}</span>
+    </div>
+
+    <h3>{post.data.title}</h3>
+    <p>{post.data.description}</p>
+    <TagList tags={post.data.tags} />
+  </a>
+</article>

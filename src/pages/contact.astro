@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import { siteMetadata } from '../config/site';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Reach out for collaboration, conversation, speaking invitations, or a good technical rabbit hole."
+>
+  <section class="page-heading shell" data-reveal>
+    <p class="eyebrow">Contact</p>
+    <h1 class="page-title">Say hello, invite me to something, or send an interesting link.</h1>
+    <p class="page-intro">
+      I am always up for a thoughtful conversation about software, AI/ML, side projects, speaking,
+      or whatever useful weirdness you are building.
+    </p>
+  </section>
+
+  <section class="section shell">
+    <div class="contact-grid">
+      <article class="contact-card" data-reveal>
+        <h3>Best way to reach me</h3>
+        <p class="contact-copy">
+          Email works well for collaboration ideas, project conversations, writing opportunities, or
+          speaking invitations.
+        </p>
+        <p>
+          <a class="inline-link" href={`mailto:${siteMetadata.email}`}>{siteMetadata.email}</a>
+        </p>
+      </article>
+
+      <article class="contact-card" data-reveal>
+        <h3>Loose availability</h3>
+        <p>
+          Open to: collaborations, podcast or meetup invites, panels, developer community events,
+          and interesting side-project conversations.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section shell" data-reveal>
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Socials</p>
+        <h2>Also available in smaller tabs</h2>
+      </div>
+      <p class="meta-copy">{siteMetadata.location}</p>
+    </div>
+
+    <SocialLinks />
+  </section>
+</BaseLayout>

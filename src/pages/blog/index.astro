@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { sortPosts } from '../../lib/utils';
+
+const posts = sortPosts(
+  await getCollection('blog', ({ data }) => {
+    return !data.draft;
+  })
+);
+
+const tagCounts = posts.reduce<Record<string, number>>((accumulator, post) => {
+  post.data.tags.forEach((tag) => {
+    accumulator[tag] = (accumulator[tag] ?? 0) + 1;
+  });
+
+  return accumulator;
+}, {});
+---
+
+<BaseLayout
+  title="Blog"
+  description="Notes on software engineering, AI/ML curiosity, side projects, developer opinions, and reflections from events."
+>
+  <section class="page-heading shell blog-header" data-reveal>
+    <p class="eyebrow">Blog</p>
+    <h1 class="page-title">Essays, notes, and the occasional carefully formatted opinion.</h1>
+    <p class="page-intro">
+      This is where I write about building things, learning in public, AI/ML, developer culture,
+      and whatever else managed to survive long enough in my notes app to earn paragraphs.
+    </p>
+
+    <div class="tag-summary" aria-label="Popular tags">
+      {Object.entries(tagCounts).map(([tag, count]) => <span>{tag} · {count}</span>)}
+    </div>
+  </section>
+
+  <section class="section shell">
+    <div class="post-grid">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </section>
+</BaseLayout>

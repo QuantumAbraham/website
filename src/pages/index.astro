@@ -1,14 +1,123 @@
 ---
-import PageMeta from "../components/PageMeta.astro";
-import PageLayout from "../layouts/PageLayout.astro";
-import Intro from "../components/Intro.astro";
-import AboutTheTheme from "../components/AboutTheTheme.astro";
-import { SITE_TITLE } from "../config";
+import { getCollection } from 'astro:content';
+import PostCard from '../components/PostCard.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {
+  communityMoments,
+  currentExplorations,
+  siteMetadata
+} from '../config/site';
+import { sortPosts, withBase } from '../lib/utils';
+
+const posts = sortPosts(
+  await getCollection('blog', ({ data }) => {
+    return !data.draft;
+  })
+).slice(0, 3);
 ---
 
-<PageLayout>
-  <PageMeta title={`${SITE_TITLE} | Web Ninja`} slot="meta" />
-  <Fragment slot="main">
-    <Intro />
-    </Fragment>
-</PageLayout>
+<BaseLayout title="Home" description={siteMetadata.description}>
+  <section class="hero shell">
+    <div class="hero-grid">
+      <div data-reveal class="is-visible">
+        <p class="eyebrow">Personal portfolio, blog, and open notebook</p>
+        <h1>{siteMetadata.siteName}</h1>
+        <p class="lede">
+          I build software, chase useful ideas, and spend an unreasonable amount of time thinking
+          about AI, developer tools, and whether a side project can double as a philosophy degree.
+        </p>
+        <div class="cta-row">
+          <a class="button primary" href={withBase('/blog')}>Read the blog</a>
+          <a class="button secondary" href={withBase('/about')}>Get the backstory</a>
+        </div>
+      </div>
+
+      <aside class="hero-aside" data-reveal>
+        <strong>Short version</strong>
+        <p>
+          Software engineer. Builder of experiments. AI-curious in a practical, occasionally
+          skeptical way. Interested in systems that are sharp, humane, and slightly more useful
+          than they first appear.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section shell" data-reveal>
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Currently exploring</p>
+        <h2>Things on the workbench</h2>
+      </div>
+      <p class="meta-copy">
+        A few themes I keep circling back to when I am building, writing, or tinkering late at
+        night.
+      </p>
+    </div>
+
+    <div class="grid-3">
+      {
+        currentExplorations.map((item) => (
+          <article class="panel">
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section shell" data-reveal>
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Recent writing</p>
+        <h2>Fresh from the notebook</h2>
+      </div>
+      <a class="button secondary" href={withBase('/blog')}>All posts</a>
+    </div>
+
+    <div class="post-grid">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </section>
+
+  <section class="section shell" data-reveal>
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Speaking and community</p>
+        <h2>Public-facing, but still a real person</h2>
+      </div>
+      <p class="meta-copy">
+        I like technical conversations that survive contact with reality, whether that happens on a
+        stage, in a meetup room, or in a thread with too many opinions and just enough evidence.
+      </p>
+    </div>
+
+    <div class="grid-3">
+      {
+        communityMoments.map((item) => (
+          <article class="timeline-card">
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section shell" data-reveal>
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">Find me online</p>
+        <h2>Friendly corners of the internet</h2>
+      </div>
+      <p class="meta-copy">
+        Placeholder links for now, but the structure is ready for the real ones as soon as you
+        have them.
+      </p>
+    </div>
+
+    <SocialLinks />
+  </section>
+</BaseLayout>

@@ -1,25 +1,23 @@
 ---
+import { siteMetadata, socialLinks } from '../config/site';
 ---
 
-<footer>
-  <div>
-    Made with 
-    ❤️
-  </div>
-  <div>
-     ©2024 Charles Abraham
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div>
+      <p class="footer-title">{siteMetadata.siteName}</p>
+      <p class="footer-tagline">{siteMetadata.tagline}</p>
+    </div>
+
+    <div class="footer-links">
+      {
+        socialLinks.map((link) => (
+          <a href={link.href} target="_blank" rel="noreferrer">
+            <span>{link.label}</span>
+            <small>{link.handle}</small>
+          </a>
+        ))
+      }
+    </div>
   </div>
 </footer>
-
-<style>
-  footer {
-    grid-area: footer;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.875rem;
-    margin-top: 1rem;
-    line-height: 1.75;
-  }
-</style>

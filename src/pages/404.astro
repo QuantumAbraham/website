@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { withBase } from '../lib/utils';
+---
+
+<BaseLayout title="Not Found" description="The page you were looking for wandered off into the wrong tab.">
+  <section class="page-heading shell" data-reveal>
+    <p class="eyebrow">404</p>
+    <h1 class="page-title">This page took a suspiciously sharp left turn.</h1>
+    <p class="page-intro">
+      The link is probably old, broken, or the internet is just being dramatic again.
+    </p>
+    <div class="cta-row">
+      <a class="button primary" href={withBase('/')}>Back home</a>
+      <a class="button secondary" href={withBase('/blog')}>Browse the blog</a>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,21 @@
+---
+import { socialLinks } from '../config/site';
+
+interface Props {
+  compact?: boolean;
+}
+
+const { compact = false } = Astro.props;
+---
+
+<div class:list={['social-grid', compact && 'compact']}>
+  {
+    socialLinks.map((link) => (
+      <a class="social-card" href={link.href} target="_blank" rel="noreferrer">
+        <span class="social-label">{link.label}</span>
+        <span class="social-handle">{link.handle}</span>
+        {!compact && <p>{link.blurb}</p>}
+      </a>
+    ))
+  }
+</div>
