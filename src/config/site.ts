@@ -3,7 +3,7 @@ export const siteMetadata = {
   personName: 'Charles',
   tagline: 'Ctrl+C, Ctrl+V, and a little bit of me.',
   description:
-    'A dark, editorial personal portfolio and blog about software engineering, AI/ML curiosity, side projects, speaking, and the small experiments that turn into convictions.',
+    'A dark, editorial personal portfolio and blog about leading quality assurance at DT One, obsessing over open-source AI models, and writing through software, experiments, and internet opinions.',
   email: 'hello@charlesyapping.zone',
   location: 'Somewhere between a terminal tab, a notebook margin, and a half-finished side project.'
 };
@@ -24,7 +24,7 @@ export const socialLinks = [
   },
   {
     label: 'LinkedIn',
-    href: 'www.linkedin.com/in/abraham-charles-269506211',
+    href: 'https://www.linkedin.com/in/abraham-charles-269506211',
     handle: 'Link with Me',
     blurb: 'The polished version of the same internet person.'
   },
@@ -38,14 +38,14 @@ export const socialLinks = [
 
 export const currentExplorations = [
   {
-    title: 'Small AI tools with very opinionated UX',
+    title: 'Open-source AI models and the ecosystems around them',
     description:
-      'I am interested in products that make machine intelligence feel useful without feeling magical, vague, or weirdly smug about it.'
+      'I keep circling back to open models, local-first experiments, and the part of AI work that gets interesting once the hype leaves the room.'
   },
   {
-    title: 'Developer workflows that reduce friction',
+    title: 'Quality systems that make engineers mildly uncomfortable for good reasons',
     description:
-      'The sort of internal tooling that saves five minutes a day, which is exactly long enough to matter once it compounds.'
+      'A decent chunk of my brain is occupied by test strategy, release confidence, and the subtle art of bothering engineers until the software behaves.'
   },
   {
     title: 'Experiments that teach faster than a roadmap',
