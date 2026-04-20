@@ -18,20 +18,20 @@ export const navLinks = [
 export const socialLinks = [
   {
     label: 'GitHub',
-    href: 'https://github.com/your-handle',
-    handle: '@your-handle',
+    href: 'https://github.com/QuantumAbraham',
+    handle: 'QuantumAbraham',
     blurb: 'Code, experiments, and the occasional strangely specific README.'
   },
   {
     label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/your-handle',
-    handle: 'your-handle',
+    href: 'www.linkedin.com/in/abraham-charles-269506211',
+    handle: 'Link with Me',
     blurb: 'The polished version of the same internet person.'
   },
   {
     label: 'X / Twitter',
-    href: 'https://x.com/your-handle',
-    handle: '@your-handle',
+    href: 'https://x.com/Churbs_Chacha,
+    handle: 'Yap yap on X',
     blurb: 'Loose thoughts, links, and public notes from the workbench.'
   }
 ];
