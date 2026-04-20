@@ -30,7 +30,7 @@ export const socialLinks = [
   },
   {
     label: 'X / Twitter',
-    href: 'https://x.com/Churbs_Chacha,
+    href: 'https://x.com/Churbs_Chacha',
     handle: 'Yap yap on X',
     blurb: 'Loose thoughts, links, and public notes from the workbench.'
   }
